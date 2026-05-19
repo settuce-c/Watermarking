@@ -11,28 +11,20 @@ EMBED:  Citra Asli → DCT → Sisipkan Watermark di koefisien DCT → IDCT → 
 EXTRACT: Citra Terkompresi → DCT → Ekstrak koefisien → Bandingkan dengan original → Watermark
 ```
 
-# Bagian 1: Implementasi DCT Manual
-**Discrete Cosine Transform (DCT)** mengubah sinyal dari domain spasial (piksel) ke domain frekuensi (koefisien cosinus). Pada JPEG, tiap blok 8×8 piksel ditransformasi dengan DCT-II:
+# Bagian 1: Menyiapkan Foto Asli
+Mengubah foto asli menjadi grayscale
+<img width="661" height="641" alt="image" src="https://github.com/user-attachments/assets/340e1309-bc63-459a-be79-e480abdf7c69" />
 
-$$F(u,v) = \frac{1}{4} C(u) C(v) \sum_{x=0}^{7}\sum_{y=0}^{7} f(x,y) \cos\!\left(\frac{(2x+1)u\pi}{16}\right) \cos\!\left(\frac{(2y+1)v\pi}{16}\right)$$
+# Bagian 2: Membuat Watermark
+Watermark yang dibuat polanya WM. 
+<img width="1256" height="508" alt="image" src="https://github.com/user-attachments/assets/99caa82f-fad4-4c6c-a63b-4ec06f9858c3" />
 
-Di mana $C(0) = 1/\sqrt{2}$, dan $C(u) = 1$ untuk $u > 0$.
+# Bagian 3: Menyisipkan Watermark
+Menyisipkan watermark ke foto asli tadi kita yang udah jadi grayscale
+<img width="1067" height="722" alt="image" src="https://github.com/user-attachments/assets/46c747a3-9268-4414-94b6-49fc3ae0e263" />
 
-- **Koefisien (0,0)** = DC component → nilai rata-rata blok
-- **Koefisien lainnya** = AC components → detail/frekuensi tinggi
+# Bagian 4: Kompresi dengan QF yang berbeda beda
+<img width="1245" height="542" alt="image" src="https://github.com/user-attachments/assets/4db5ab1d-724a-426d-9f47-2df49cf04f62" />
+<img width="1237" height="682" alt="image" src="https://github.com/user-attachments/assets/71e26aed-780a-476b-a4dc-5abd25156c6b" />
 
-# Bagian 2: Tabel Kuantisasi & Kompresi JPEG Manual
 
-### Bagaimana JPEG Bekerja?
-JPEG mengompres citra dengan langkah:
-1. **Konversi warna** (RGB → YCbCr)
-2. **Pembagian blok** 8×8 piksel
-3. **DCT** pada setiap blok
-4. **Kuantisasi**: koefisien DCT dibagi tabel kuantisasi lalu dibulatkan → inilah yang menyebabkan hilangnya informasi!
-5. **Encoding** (Huffman)
-
-**Quality Factor (QF)** mengontrol tabel kuantisasi:
-- QF tinggi (misal 95) → nilai pembagi kecil → detail dipertahankan → file besar
-- QF rendah (misal 10) → nilai pembagi besar → banyak detail hilang → file kecil
-
-**Inilah yang membuat watermark bisa hilang** — koefisien DCT tempat watermark disisipkan bisa menjadi 0 setelah kuantisasi!
