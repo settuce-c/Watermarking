@@ -12,7 +12,8 @@ EXTRACT: Citra Terkompresi → DCT → Ekstrak koefisien → Bandingkan dengan o
 ```
 
 # Bagian 1: Menyiapkan Foto Asli
-Mengubah foto asli menjadi grayscale
+Mengubah foto asli menjadi grayscale dan pixelnya 
+
 <img width="661" height="641" alt="image" src="https://github.com/user-attachments/assets/340e1309-bc63-459a-be79-e480abdf7c69" />
 
 # Bagian 2: Membuat Watermark
